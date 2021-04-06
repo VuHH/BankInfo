@@ -13,6 +13,7 @@ func DBConn() (db *sql.DB) {
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName+"?parseTime=true")
 	if err != nil {
+		// TODO log error
 		panic(err.Error())
 	}
 	return db

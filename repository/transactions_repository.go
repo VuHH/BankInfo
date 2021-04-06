@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func GetTransactionsUser(userId string, accountId string) ([]dto.Transaction, error) {
+func FindTransactionsByUserIdAndAccountId(userId string, accountId string) ([]dto.Transaction, string) {
 	var transactions []dto.Transaction
 	db := config.DBConn()
 	var query = "SELECT t.id_transaction, t.id_account, t.amount, a.bank, t.transaction_type, t.created_at " +
@@ -20,10 +20,7 @@ func GetTransactionsUser(userId string, accountId string) ([]dto.Transaction, er
 	rows, err := db.Query(query)
 
 	if err != nil {
-		return transactions, err
-		//c.JSON(500, gin.H{
-		//	"messages" : "Transaction not found",
-		//})
+		return transactions, "Query Db is failed"
 	}
 
 	for rows.Next() {
@@ -35,7 +32,7 @@ func GetTransactionsUser(userId string, accountId string) ([]dto.Transaction, er
 
 		err = rows.Scan(&id_transaction, &account_id, &amount, &bank, &transaction_type, &created_at)
 		if err != nil {
-			return transactions, err
+			return transactions, "No record in db"
 		}
 
 		transaction.IdTransaction = id_transaction
@@ -48,5 +45,23 @@ func GetTransactionsUser(userId string, accountId string) ([]dto.Transaction, er
 	}
 
 	defer db.Close()
-	return transactions, err
+	return transactions, "success"
+}
+
+func SaveTransaction(requestModel dto.RequestTransaction) string {
+
+	db := config.DBConn()
+
+	insTran, err := db.Prepare(
+		"INSERT INTO transactions (id_account, amount, transaction_type) " +
+			"VALUES(?, ?, ?)")
+	if err != nil {
+		//c.JSON(500, gin.H{
+		//	"messages" : err,
+		//})
+		return "Insert is invalid"
+	}
+	insTran.Exec(requestModel.AccountId, requestModel.Amount, requestModel.TransactionType)
+	defer db.Close()
+	return "success"
 }

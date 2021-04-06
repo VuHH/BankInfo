@@ -11,7 +11,7 @@ func SetupRouter() *gin.Engine {
 
 	client := r.Group("/api")
 	{
-		client.GET("/users/:user_id/transactions/", service.GetTransactionsUser)
+		client.GET("/users/:user_id/transactions/", service.GetTransactions)
 		client.POST("/users/:user_id/transactions", service.CreateTransaction)
 		//client.PATCH("/users/:id/transactions", controllers.Update)
 		//client.DELETE("/users/:id/transactions", controllers.Delete)
