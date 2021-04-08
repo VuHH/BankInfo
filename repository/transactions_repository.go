@@ -45,13 +45,12 @@ func FindTransactionsByUserIdAndAccountId(userId string, accountId string) ([]dt
 	}
 
 	defer db.Close()
-	return transactions, "success"
+	return transactions, ""
 }
 
 func SaveTransaction(requestModel dto.RequestTransaction) string {
 
 	db := config.DBConn()
-
 	insTran, err := db.Prepare(
 		"INSERT INTO transactions (id_account, amount, transaction_type) " +
 			"VALUES(?, ?, ?)")

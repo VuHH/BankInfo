@@ -35,12 +35,6 @@ func GenerateToken(username string, isUser bool) string {
 }
 
 func ValidateToken(encodedToken string) (*jwt.Token, error) {
-	//encodedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJleHAiOjE1MDAwLCJpc3MiOiJ0ZXN0In0.HE7fK0xOQwFEr4WDgRWj4teRPZ6i3GLwD5YCm6Pwu_c"
-
-	//return  jwt.Parse(encodedToken, func(token *jwt.Token) (interface{}, error) {
-	//	return []byte("SECRETKEY_123"), nil
-	//})
-	//
 	return jwt.Parse(encodedToken, func(token *jwt.Token) (interface{}, error) {
 		if _, isvalid := token.Method.(*jwt.SigningMethodHMAC); !isvalid {
 			return "", fmt.Errorf("Invalid token", token.Header["alg"])
@@ -48,5 +42,4 @@ func ValidateToken(encodedToken string) (*jwt.Token, error) {
 		}
 		return []byte("SECRETKEY_123"), nil
 	})
-
 }

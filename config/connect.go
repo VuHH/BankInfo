@@ -3,6 +3,7 @@ package config
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
 )
 
 func DBConn() (db *sql.DB) {
@@ -13,7 +14,7 @@ func DBConn() (db *sql.DB) {
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName+"?parseTime=true")
 	if err != nil {
-		// TODO log error
+		log.Fatal(err)
 		panic(err.Error())
 	}
 	return db

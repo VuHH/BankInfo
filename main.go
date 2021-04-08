@@ -1,7 +1,8 @@
 package main
 
 import (
-	"./handlers"
+	"./routers"
+	"github.com/gin-gonic/gin"
 )
 
 //func setupRouter() *gin.Engine {
@@ -20,6 +21,10 @@ import (
 //}
 
 func main() {
-	r := handlers.SetupRouter()
+
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.Use(gin.Recovery())
+	r := routers.SetupRouter(router)
 	r.Run(":8080")
 }

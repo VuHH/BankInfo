@@ -3,24 +3,23 @@ package service
 import (
 	"../model/dto"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
-func LoginService(c *gin.Context) {
-	var loginDTO dto.Login
-	if err := c.ShouldBindJSON(&loginDTO); err == nil {
+func LoginService(loginDTO dto.Login, err error) (int, interface{}) {
+
+	if err == nil {
 		var isUser = checkLoginInfo(loginDTO)
 		token := GenerateToken(loginDTO.Username, isUser)
 		if token != "" {
-			c.JSON(http.StatusOK, gin.H{
-				"token": token,
-			})
+			return http.StatusOK, gin.H{"token": token}
 		} else {
-			c.JSON(http.StatusUnauthorized, nil)
+			return http.StatusUnauthorized, gin.H{"message": "Permission is denied"}
 		}
 	} else {
-		//TODO log error err.Error()
-		c.JSON(500, gin.H{"error": "System error"})
+		log.Fatal(err)
+		return 500, gin.H{"error": "System error"}
 	}
 
 }

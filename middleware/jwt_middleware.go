@@ -21,13 +21,13 @@ func AuthorizeJWT() gin.HandlerFunc {
 					fmt.Println(claims)
 				} else {
 					fmt.Println(err)
-					c.AbortWithStatus(http.StatusUnauthorized)
+					c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Permission is denied"})
 				}
 			} else {
-				c.AbortWithStatus(http.StatusUnauthorized)
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Permission is denied"})
 			}
 		} else {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Permission is denied"})
 		}
 
 	}
