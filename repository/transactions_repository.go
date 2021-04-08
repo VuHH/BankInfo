@@ -17,6 +17,8 @@ func FindTransactionsByUserIdAndAccountId(userId string, accountId string) ([]dt
 		query = query + " AND t.id_account = " + accountId
 	}
 
+	query = query + " order by t.id_transaction DESC "
+
 	rows, err := db.Query(query)
 
 	if err != nil {
@@ -55,9 +57,6 @@ func SaveTransaction(requestModel dto.RequestTransaction) string {
 		"INSERT INTO transactions (id_account, amount, transaction_type) " +
 			"VALUES(?, ?, ?)")
 	if err != nil {
-		//c.JSON(500, gin.H{
-		//	"messages" : err,
-		//})
 		return "Insert is invalid"
 	}
 	insTran.Exec(requestModel.AccountId, requestModel.Amount, requestModel.TransactionType)

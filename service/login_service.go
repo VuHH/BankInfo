@@ -3,7 +3,6 @@ package service
 import (
 	"../model/dto"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 )
 
@@ -18,7 +17,7 @@ func LoginService(loginDTO dto.Login, err error) (int, interface{}) {
 			return http.StatusUnauthorized, gin.H{"message": "Permission is denied"}
 		}
 	} else {
-		log.Fatal(err)
+		//log.Fatal(err)
 		return 500, gin.H{"error": "System error"}
 	}
 

@@ -4,7 +4,6 @@ import (
 	"../model/dto"
 	"../repository"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 var transactionsList []dto.Transaction
@@ -16,7 +15,7 @@ func GetTransactions(userId string, accountId string) (int, interface{}) {
 		if err == "" {
 			return 200, transactionsList
 		} else {
-			log.Fatal(err)
+			//log.Fatal(err)
 			return 502, gin.H{"messages": "System error"}
 		}
 	} else {
@@ -35,7 +34,7 @@ func CreateTransaction(userId string, requestModel dto.RequestTransaction, err e
 			}
 
 		} else {
-			log.Fatal(err)
+			//log.Fatal(err)
 			return 500, gin.H{"error": "System error"}
 		}
 
