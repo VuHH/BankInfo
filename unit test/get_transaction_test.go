@@ -29,7 +29,7 @@ func TestGetTransactionsService(t *testing.T) {
 	}
 }
 
-func TestGetTransactionController(t *testing.T) {
+func TestGetTransactionWithNoAccountId(t *testing.T) {
 
 	token := service.GenerateToken("admin", true)
 	var bearer = "Bearer " + token
@@ -40,7 +40,7 @@ func TestGetTransactionController(t *testing.T) {
 	req.Header.Add("Authorization", bearer)
 	r.ServeHTTP(w, req)
 
-	content, err := ioutil.ReadFile("GetTransactionJsonExpect.json")
+	content, err := ioutil.ReadFile("./expected_result/GetTransactionJsonExpect.json")
 
 	if err != nil {
 		log.Fatal(err)
@@ -48,5 +48,45 @@ func TestGetTransactionController(t *testing.T) {
 
 	assert.Equal(t, 200, w.Code)
 	assert.Equal(t, string(content), w.Body.String())
+
+}
+
+func TestGetTransactionWithAccountId(t *testing.T) {
+
+	token := service.GenerateToken("admin", true)
+	var bearer = "Bearer " + token
+
+	r := routers.SetupRouter()
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/users/1/transactions/?account_id=1", nil)
+	req.Header.Add("Authorization", bearer)
+	r.ServeHTTP(w, req)
+
+	content, err := ioutil.ReadFile("./expected_result/GetTransactionJsonExpectWithAccountId.json")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, string(content), w.Body.String())
+
+}
+
+func TestGetTransactionWithNoExist(t *testing.T) {
+
+	token := service.GenerateToken("admin", true)
+	var bearer = "Bearer " + token
+
+	r := routers.SetupRouter()
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/users/1/transactions/?account_id=4", nil)
+	req.Header.Add("Authorization", bearer)
+	r.ServeHTTP(w, req)
+
+	content := "{\"messages\":\"No Records\"}"
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, content, w.Body.String())
 
 }

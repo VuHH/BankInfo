@@ -13,7 +13,12 @@ func GetTransactions(userId string, accountId string) (int, interface{}) {
 	if len(userId) > 0 {
 		transactionsList, err = repository.FindTransactionsByUserIdAndAccountId(userId, accountId)
 		if err == "" {
-			return 200, transactionsList
+			if len(transactionsList) > 0 {
+				return 200, transactionsList
+			} else {
+				return 200, gin.H{"messages": "No Records"}
+			}
+
 		} else {
 			//log.Fatal(err)
 			return 502, gin.H{"messages": "System error"}
