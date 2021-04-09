@@ -4,6 +4,7 @@ import (
 	"../model/dto"
 	"../repository"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 var transactionsList []dto.Transaction
@@ -32,15 +33,18 @@ func GetTransactions(userId string, accountId string) (int, interface{}) {
 func CreateTransaction(userId string, requestModel dto.RequestTransaction, err error) (int, interface{}) {
 	if len(userId) > 0 {
 		if err == nil {
-			if repository.SaveTransaction(requestModel) == "success" {
-				return 200, gin.H{"messages": "Create Success!!"}
+			if requestModel.TransactionType == "deposit" || requestModel.TransactionType == "withdraw" {
+				if repository.SaveTransaction(requestModel) == "success" {
+					return 200, gin.H{"messages": "Create Success!!"}
+				} else {
+					return 503, gin.H{"messages": "Create Failed"}
+				}
 			} else {
-				return 503, gin.H{"messages": "Create Failed"}
+				return http.StatusBadRequest, gin.H{"error": "Transaction Type is deposit or withdraw"}
 			}
 
 		} else {
-			//log.Fatal(err)
-			return 500, gin.H{"error": "System error"}
+			return http.StatusBadRequest, gin.H{"error": err.Error()}
 		}
 
 	} else {

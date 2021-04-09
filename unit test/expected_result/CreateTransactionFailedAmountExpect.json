@@ -1,0 +1,1 @@
+{"error":"json: cannot unmarshal string into Go struct field RequestTransaction.amount of type float64"}

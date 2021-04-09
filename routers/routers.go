@@ -18,7 +18,7 @@ func SetupRouter() *gin.Engine {
 
 	api.Use(middleware.AuthorizeJWT())
 	{
-		api.GET("/users/:user_id/transactions/", controllers.GetTransactions)
+		api.GET("/users/:user_id/transactions", controllers.GetTransactions)
 		api.POST("/users/:user_id/transactions", controllers.CreateTransaction)
 		api.POST("/accounts/:account_id/update", controllers.UpdateAccounts)
 		api.POST("/accounts/:account_id/remove", controllers.DeleteAccount)
