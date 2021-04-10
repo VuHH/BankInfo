@@ -10,6 +10,9 @@ func LoginService(loginDTO dto.Login, err error) (int, interface{}) {
 
 	if err == nil {
 		var isUser = checkLoginInfo(loginDTO)
+		if isUser == false {
+			return 500, gin.H{"message": "Account not exist"}
+		}
 		token := GenerateToken(loginDTO.Username, isUser)
 		if token != "" {
 			return http.StatusOK, gin.H{"token": token}
@@ -18,7 +21,7 @@ func LoginService(loginDTO dto.Login, err error) (int, interface{}) {
 		}
 	} else {
 		//log.Fatal(err)
-		return 500, gin.H{"error": "System error"}
+		return 500, gin.H{"error": err.Error()}
 	}
 
 }
