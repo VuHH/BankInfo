@@ -1,8 +1,8 @@
 package unit
 
 import (
-	"../routers"
-	"../service"
+	"bankinfo.com/routers"
+	"bankinfo.com/service"
 	"bytes"
 	"github.com/stretchr/testify/assert"
 	"net/http"

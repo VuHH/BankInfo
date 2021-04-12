@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"../config"
+	"bankinfo.com/config"
 )
 
 func UpdateNameAccount(nameBank string, accountId string) string {

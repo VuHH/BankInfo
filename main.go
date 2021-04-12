@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./routers"
+	"bankinfo.com/routers"
 )
 
 func main() {

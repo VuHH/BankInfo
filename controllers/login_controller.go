@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"../model/dto"
-	"../service"
+	"bankinfo.com/model/dto"
+	"bankinfo.com/service"
 	"github.com/gin-gonic/gin"
 )
 

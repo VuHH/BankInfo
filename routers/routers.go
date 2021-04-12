@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"../controllers"
-	"../middleware"
+	"bankinfo.com/controllers"
+	"bankinfo.com/middleware"
 	"github.com/gin-gonic/gin"
 )
 

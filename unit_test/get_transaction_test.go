@@ -1,8 +1,8 @@
 package unit_test
 
 import (
-	"../routers"
-	"../service"
+	"bankinfo.com/routers"
+	"bankinfo.com/service"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"log"

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"../service"
+	"bankinfo.com/service"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

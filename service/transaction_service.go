@@ -1,8 +1,8 @@
 package service
 
 import (
-	"../model/dto"
-	"../repository"
+	"bankinfo.com/model/dto"
+	"bankinfo.com/repository"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

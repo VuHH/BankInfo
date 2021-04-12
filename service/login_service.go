@@ -1,7 +1,7 @@
 package service
 
 import (
-	"../model/dto"
+	"bankinfo.com/model/dto"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

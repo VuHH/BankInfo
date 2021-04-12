@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"../config"
-	"../model/dto"
+	"bankinfo.com/config"
+	"bankinfo.com/model/dto"
 	_ "database/sql"
 	"time"
 )
