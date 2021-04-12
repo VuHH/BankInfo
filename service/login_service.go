@@ -2,6 +2,7 @@ package service
 
 import (
 	"bankinfo.com/model/dto"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,7 +21,7 @@ func LoginService(loginDTO dto.Login, err error) (int, interface{}) {
 			return http.StatusUnauthorized, gin.H{"message": "Permission is denied"}
 		}
 	} else {
-		//log.Fatal(err)
+		fmt.Println("err", err.Error())
 		return 500, gin.H{"error": err.Error()}
 	}
 

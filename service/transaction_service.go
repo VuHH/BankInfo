@@ -3,6 +3,7 @@ package service
 import (
 	"bankinfo.com/model/dto"
 	"bankinfo.com/repository"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -21,7 +22,7 @@ func GetTransactions(userId string, accountId string) (int, interface{}) {
 			}
 
 		} else {
-			//log.Fatal(err)
+			fmt.Println("err", err)
 			return 502, gin.H{"messages": "System error"}
 		}
 	} else {

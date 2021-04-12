@@ -2,6 +2,7 @@ package config
 
 import (
 	"database/sql"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -15,6 +16,7 @@ func DBConn() (db *sql.DB) {
 	if err != nil {
 		//log.Fatal(err)
 		panic(err.Error())
+		fmt.Println("err", err.Error())
 	}
 	return db
 }

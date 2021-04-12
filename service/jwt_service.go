@@ -29,6 +29,7 @@ func GenerateToken(username string, isUser bool) string {
 	t, err := token.SignedString([]byte("SECRETKEY_123"))
 	if err != nil {
 		panic(err)
+		fmt.Println("err", err)
 	}
 	return t
 

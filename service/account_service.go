@@ -3,13 +3,14 @@ package service
 import (
 	"bankinfo.com/model/dto"
 	"bankinfo.com/repository"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 func UpdateNameAccount(accountId string, updateAccount dto.UpdateAccount, err error) (int, interface{}) {
 	if len(accountId) > 0 {
 		if err != nil {
-			//log.Fatal(err)
+			fmt.Println("err", err)
 			return 500, gin.H{"messages": "System error"}
 		} else {
 			if updateAccount.NameBank == "" {
@@ -31,7 +32,7 @@ func UpdateNameAccount(accountId string, updateAccount dto.UpdateAccount, err er
 func UpdateStatusActiveAccount(accountId string, updateAccount dto.UpdateAccount, err error) (int, interface{}) {
 	if len(accountId) > 0 {
 		if err != nil {
-			//log.Fatal(err)
+			fmt.Println("err", err)
 			return 500, gin.H{"messages": "System error"}
 		} else {
 			if repository.UpdateStatusAccount(updateAccount.IsActive, accountId) == "success" {
