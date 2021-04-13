@@ -17,7 +17,6 @@ func DBConn() (db *sql.DB) {
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?parseTime=true")
 	if err != nil {
-		//log.Fatal(err)
 		panic(err.Error())
 		fmt.Println("err", err.Error())
 	}
