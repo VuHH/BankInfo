@@ -4,6 +4,7 @@ import (
 	"bankinfo.com/config"
 	"bankinfo.com/model/dto"
 	_ "database/sql"
+	"fmt"
 	"time"
 )
 
@@ -22,6 +23,7 @@ func FindTransactionsByUserIdAndAccountId(userId string, accountId string) ([]dt
 	rows, err := db.Query(query)
 
 	if err != nil {
+		fmt.Println("Err: ", err.Error())
 		return transactions, "Query Db is failed"
 	}
 
@@ -57,6 +59,7 @@ func SaveTransaction(requestModel dto.RequestTransaction) string {
 		"INSERT INTO transactions (id_account, amount, transaction_type) " +
 			"VALUES(?, ?, ?)")
 	if err != nil {
+		fmt.Println("Err: ", err.Error())
 		return "Insert is invalid"
 	}
 	insTran.Exec(requestModel.AccountId, requestModel.Amount, requestModel.TransactionType)
